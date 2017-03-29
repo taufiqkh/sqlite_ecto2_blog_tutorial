@@ -2,17 +2,14 @@ defmodule Blog do
   @moduledoc """
   Documentation for Blog.
   """
+  use Application
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Blog.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
+    children = [
+      worker(Blog.Repo, [])
+    ]
+    opts = [strategy: :one_for_one, name: Blog.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end

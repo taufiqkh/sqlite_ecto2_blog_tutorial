@@ -3,12 +3,10 @@
 use Mix.Config
 
 config :blog, Blog.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  database: "blog_repo",
-  username: "user",
-  password: "pass",
-  hostname: "localhost"
+  adapter: Sqlite.Ecto,
+  database: "blog.sqlite3"
 
+config :blog, ecto_repos: [Blog.Repo]
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
