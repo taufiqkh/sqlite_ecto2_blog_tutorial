@@ -41,5 +41,13 @@ defmodule BlogTest do
     |> List.flatten
     |> Enum.map(fn post -> post.title end)
     assert List.duplicate("Tractatus", 3) == titles
+
+    # update user password
+    passwordChange = Ecto.Changeset.change(%User{id: author.id}, password: "leopoldine")
+    Repo.update(passwordChange)
+    assert ["leopoldine"] == User
+                             |> select([user], user.password)
+                             |> where([user], user.id == ^author.id)
+                             |> Repo.all
   end
 end

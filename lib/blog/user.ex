@@ -6,6 +6,7 @@ defmodule Blog.User do
     has_many :posts, Post
     field :name, :string
     field :email, :string
+    field :password, :string, [default: "CHANGE_ME", null: false]
     timestamps()
   end
 end
