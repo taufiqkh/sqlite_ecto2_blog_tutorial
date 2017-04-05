@@ -33,5 +33,13 @@ defmodule BlogTest do
                                       |> select([post], post.title)
                                       |> where([post], post.user_id == ^user.id)
                                       |> Repo.all
+    # preload user posts
+    query = from u in User, where: u.id == ^author.id, preload: [:posts]
+    titles = query
+    |> Repo.all
+    |> Enum.map(fn user -> user.posts end)
+    |> List.flatten
+    |> Enum.map(fn post -> post.title end)
+    assert List.duplicate("Tractatus", 3) == titles
   end
 end
