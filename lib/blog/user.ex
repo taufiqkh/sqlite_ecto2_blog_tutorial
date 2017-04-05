@@ -1,5 +1,5 @@
 defmodule Blog.User do
-  use Ecto.Model
+  use Ecto.Schema
   alias Blog.Post
 
   schema "users" do
