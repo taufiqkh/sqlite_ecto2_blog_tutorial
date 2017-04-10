@@ -58,7 +58,7 @@ defmodule BlogTest do
                              |> Repo.all
 
     # prevent usernames from overlapping
-    assert_raise Sqlite.Ecto.Error, "constraint: UNIQUE constraint failed: users.name", fn ->
+    assert_raise Sqlite.DbConnection.Error, "constraint: UNIQUE constraint failed: users.name", fn ->
       %User{name: "ludwig_wittgenstein", password: "NOT_THE_REAL_USER"} |> Repo.insert
     end
 

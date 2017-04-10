@@ -29,6 +29,6 @@ defmodule Blog.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:db_connection, "~> 1.1.0"},
-     {:sqlite_ecto2, "~> 2.0.0-dev.0"}]
+     {:sqlite_ecto2, "~> 2.0.0-dev.2"}]
   end
 end

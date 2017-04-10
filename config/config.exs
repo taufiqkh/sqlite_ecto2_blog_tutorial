@@ -3,7 +3,7 @@
 use Mix.Config
 
 config :blog, Blog.Repo,
-  adapter: Sqlite.Ecto,
+  adapter: Sqlite.Ecto2,
   database: "blog.sqlite3"
 
 config :blog, ecto_repos: [Blog.Repo]
