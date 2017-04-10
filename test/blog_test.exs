@@ -12,6 +12,13 @@ defmodule BlogTest do
     {:ok, [pid: pid]}
   end
 
+  setup do
+    on_exit fn ->
+      Repo.delete_all(Post)
+      Repo.delete_all(User)
+    end
+  end
+
   test "that everything works as it should" do
     # assert we can insert and query a user
     {:ok, author} = %User{name: "ludwig_wittgenstein", email: "sharp_witt@example.de"} |> Repo.insert
@@ -49,5 +56,11 @@ defmodule BlogTest do
                              |> select([user], user.password)
                              |> where([user], user.id == ^author.id)
                              |> Repo.all
+
+    # prevent usernames from overlapping
+    assert_raise Sqlite.Ecto.Error, "constraint: UNIQUE constraint failed: users.name", fn ->
+      %User{name: "ludwig_wittgenstein", password: "NOT_THE_REAL_USER"} |> Repo.insert
+    end
+
   end
 end
